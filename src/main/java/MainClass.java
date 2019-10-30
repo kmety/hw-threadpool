@@ -4,6 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
+import java.util.concurrent.RecursiveTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,7 +24,7 @@ public class MainClass {
         }
         executorService.shutdown();
 
-        CountMillionForkJoinTask forkJoinTask = new CountMillionForkJoinTask(millionList);
+        RecursiveTask<Integer> forkJoinTask = new CountMillionForkJoinTask(millionList);
         ForkJoinPool commonPool = ForkJoinPool.commonPool();
         int result = commonPool.invoke(forkJoinTask);
         System.out.println("ForkJoinPool result is: " + result);
